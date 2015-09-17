@@ -874,6 +874,224 @@ orbitalPeriod([{name : "sputkin", avgAlt : 35873.5553}]);
 
 
 /*
-	MORE ALGORITHMS COMING SOON!
+Bonfire: Diff Two Arrays
+-------------------------
+
+Compare two arrays and return a new array with any items not found in both of the original arrays.
 */
 
+function diff(arr1, arr2) {
+  var newArr = [];
+  
+  var filterArr1 = arr1.filter(function(value){
+    return arr2.indexOf(value) === -1;
+  });
+  
+  var filterArr2 = arr2.filter(function(value){
+    return arr1.indexOf(value) === -1;
+  });
+  
+  
+  return filterArr1.concat(filterArr2);
+}
+
+diff([1, 2, 3, 5], [1, 2, 3, 4, 5]);
+
+/*
+Bonfire: Missing letters
+--------------------------
+ 
+Find the missing letter in the passed letter range and return it.
+
+If all letters are present in the range, return undefined.
+*/
+
+function fearNotLetter(str)
+{
+  var missing;
+  // Create alphabet for algorithm
+  var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  
+  // Obtain first element of argument
+  var firstIndx = str.charAt(0);
+  // Obtain second element of argument
+  var lastIndx = str.charAt(str.length-1);
+  
+  // Obtain the section of the alphabet based on the first and last index of the argument. + 1 must be included as part of the second argument of the slice function due to the nature of the function
+  var selected = alphabet.slice(alphabet.indexOf(firstIndx), alphabet.indexOf(lastIndx) + 1);
+  
+  console.log("First index of str contains: " + firstIndx + "\nLast index of str contains: " + lastIndx + "\nThe selected string from alphabet is: " + selected);
+  
+  for (var i = 0; i < selected.length; i++)
+    {
+      if (selected.charAt(i) !== str.charAt(i))
+        {
+          console.log(selected.charAt(i) + " Does NOT equal " + str.charAt(i));
+          missing = selected.charAt(i);
+          // Exit the for-loop entirely
+          break;
+        }
+    }
+
+  return missing;
+}
+
+fearNotLetter('abce');
+
+
+/*
+  Bonfire: Spinal Tap Case
+  ------------------------
+Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+
+*/
+
+function spinalCase(str)
+{
+  var res = str.replace(/[" _"]+/g, "-").split("");
+  res[0] = res[0].toLowerCase(); // Die, you damn you bug.
+  
+ // console.log(res);
+  
+  for (var x = 0; x < res.length; x++)
+    {
+      if (res[x] === res[x].toUpperCase() && res[x] !== "-" && res[x-1] !== "-")
+        {
+          res.splice(x, 0, " ");
+          x++;
+        }
+    }
+  
+  // console.log(res);
+  
+  for (var i = 0; i < res.length; i++)
+    {
+      if (res[i] === " " || res[i] === "_")
+        {
+          res[i] = "-";
+        }
+    }
+  
+  return res.join("").toLowerCase();
+  
+}
+
+spinalCase('This Is Spinal Tap');
+
+
+/*
+Bonfire: Steamroller
+-----------------------
+
+Flatten a nested array. You must account for varying levels of nesting.
+
+*/
+
+function steamroller(arr)
+{
+  var newArr = [];
+  console.log("The arrays length is: " + arr.length);
+  // Convert array to string and remove all nests. Replace ALL commas(,) with empty space.
+  arr = arr.join().replace(/,+/g,"");
+  
+  console.log(arr);
+  
+  for (var i = 0; i < arr.length; i++)
+    {
+      console.log(arr.charAt(i));
+      // Use parseInt function to convert each string into a number
+      if (!isNaN(arr.charAt(i)))
+        {
+          newArr.push(parseInt(arr.charAt(i)));
+        }
+      else
+        {
+          newArr.push(arr.charAt(i));
+        }
+    }
+  
+  return newArr;
+}
+
+steamroller([1, [2], [3, [[4]]]]);
+
+
+/*
+Bonfire: Smallest Common Multiple
+------------------------------------
+Find the smallest common multiple of the provided parameters that can be evenly divided by both, as well as by all sequential numbers in the range between these parameters.
+
+The range will be an array of two numbers that will not necessarily be in numerical order.
+
+e.g. for 1 and 3 - find the smallest common multiple of both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
+
+*/
+
+function smallestCommons(arr)
+{
+  var dock = []; // this will contain the range with respect to the provided array arguement. 
+  var largest;
+  var smallest;
+  
+  // find the largest and smallest number respectively 
+  if (arr[0] > arr[1])
+    {
+      largest = arr[0];
+      smallest = arr[1];
+      dock.push(largest);
+    }
+  else 
+    {
+      largest = arr[1];
+      smallest = arr[0];
+      dock.push(largest);
+    }
+  
+  // populate the dock
+  for (var i = largest-1; i >= smallest; i--)
+    {
+      dock.push(i);
+    }
+  
+  dock.sort(); // Once populated, sort the dock for easy iteration in the for-loop seen below.
+  
+  console.log(dock);
+  
+  
+  /* All heavy lifting for algorithm begins here */
+  
+  var count = 1; // create count variable for loop
+  var exit = 0; 
+  
+  while (exit !== 1) // Create infinite loop due to the fact that for each run of the program the arguements may be different. This is countered by (return) statement within the nested if conditional 
+    {
+      var top = largest * count;
+      console.log(top);
+      
+      for (var x = 0; x < dock.length; x++)
+        {
+          if (top % dock[x] === 0)
+            {
+              console.log(top + " % " + dock[x] + " is equal to 0."); // Used to debug, view in console to see how the program works
+              
+              if (x === dock.length-1 && top % dock[x] === 0)
+                {
+                  exit = 1;
+                  return top;
+                }
+            }
+          else 
+            {
+              console.log(top + " % " + dock[x] + " NOT EQUAL TO 0."); // Same as above
+              break; // break out into the while loop if the condition has not been met. 
+            }
+        }
+      
+      count++; // gradually increment count due to the nature of the top variable. 
+    }
+  
+}
+
+smallestCommons([1,5]);
+
+/* MORE ALGORITHMS COMING SOON! */
