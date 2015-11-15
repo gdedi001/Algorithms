@@ -17,11 +17,7 @@ Your result must be a string.
 */
 
 function reverseString(str) {
-  str = str.split("");
-  str = str.reverse();
-  str = str.toString();
-  str = str.replace(/,/g, "");
-  
+  str = str.split("").reverse().toString().replace(/,/g, "");  
   return str;
 }
 
