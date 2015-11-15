@@ -66,24 +66,22 @@ We'll pass strings with varying formats, such as "racecar", "RaceCar", and "race
 */
 
 function palindrome(str) {
- oldString = str.toLowerCase();
+ var oldString = str.toLowerCase();
+ var punctuation = /[!.?, ]\w+/g;
 
 
-  for (var i = 0; i<oldString.length; i++)
-    {
-      if (oldString.charAt(i) == '!' || oldString.charAt(i) == '.' || oldString.charAt(i) == '?' || oldString.charAt(i) == ',' || oldString.charAt(i) == ' ') 
-      {
+  for (var i = 0; i<oldString.length; i++) {
+      if (oldString.charAt(i).match(/[!.?, ]\w+/g)) {
         oldString = oldString.replace(oldString.charAt(i), ' ');
       }
     }
-  oldString = oldString.replace(/ /g, '');
 
-  if (oldString == oldString.split('').reverse().join(''))
-    {
-      return true;
-    }else
-      {
-        return false; 
+    oldString = oldString.replace(/ /g, '');
+
+    if (oldString == oldString.split('').reverse().join('')) {
+        return true;
+      }else{
+          return false; 
       }  
 }
 
