@@ -756,24 +756,32 @@ Remember, you can access object properties through either dot notation or [] not
 
 function every(collection, pre) {
   // Does everyone have one of these?
+  var objCount = collection.length - 1;
   
-  for (var i = 0; i < collection.length; i++)
+  for (var i = 0; i <= objCount; i++)
     {
+      // if the property exits check to see if it is valid
       if(collection[i].hasOwnProperty(pre))
         {
-          return true;
+          if (Boolean(collection[i][pre]))
+            {
+              if (i === objCount)
+                {
+                  return true;
+                }
+            }
+          else
+            {
+              return false;
+            }
         }
       else
         {
           return false;
         }
     }
-  
-  
-  console.log(collection.length);
-  //return collection[0].user;
 }
-
+          
 every([{'user': 'Tinky-Winky', 'sex': 'male'}, {'user': 'Dipsy', 'sex': 'male'}, {'user': 'Laa-Laa', 'sex': 'female'}, {'user': 'Po', 'sex': 'female'}], 'sex');
 
 
