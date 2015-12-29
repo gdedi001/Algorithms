@@ -1096,4 +1096,39 @@ function smallestCommons(arr)
 
 smallestCommons([1,5]);
 
+
+/*
+
+Bonfire: Pairwise
+--------------------
+Return the sum of all indices of elements of 'arr' that can be paired with one other element to form a sum that equals the value in the second argument 'arg'. If multiple sums are possible, return the smallest sum. Once an element has been used, it cannot be reused to pair with another.
+
+For example, pairwise([1, 4, 2, 3, 0, 5], 7) should return 11 because 4, 2, 3 and 5 can be paired with each other to equal 7.
+
+pairwise([1, 3, 2, 4], 4) would only equal 1, because only the first two elements can be paired to equal 4, and the first element has an index of 0!
+
+*/
+
+function pairwise(arr, arg) {
+  var answers = 0;
+  var used = [];
+
+  for (var i = 0; i < arr.length; i++) { 
+    for (var x = i+1; x < arr.length; x++) {    
+      
+      if (((arr[i] + arr[x]) === arg) && (!used.includes(i) && !used.includes(x))) {
+          answers += i + x;
+          used.push(i);
+          used.push(x);
+          break;
+       }
+    }
+  }
+  
+  return answers;
+}
+
+pairwise([1,4,2,3,0,5], 7);
+
+
 /* MORE ALGORITHMS COMING SOON! */
