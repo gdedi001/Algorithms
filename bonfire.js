@@ -941,8 +941,6 @@ function spinalCase(str)
   var res = str.replace(/[" _"]+/g, "-").split("");
   res[0] = res[0].toLowerCase(); // Die, you damn you bug.
   
- // console.log(res);
-  
   for (var x = 0; x < res.length; x++)
     {
       if (res[x] === res[x].toUpperCase() && res[x] !== "-" && res[x-1] !== "-")
@@ -950,10 +948,7 @@ function spinalCase(str)
           res.splice(x, 0, " ");
           x++;
         }
-    }
-  
-  // console.log(res);
-  
+    }  
   for (var i = 0; i < res.length; i++)
     {
       if (res[i] === " " || res[i] === "_")
@@ -1141,6 +1136,47 @@ function unite(arr1, arr2, arr3) {
 }
 
 unite([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+
+
+/*
+Bonfire: Arguments Optional
+-----------------------------
+Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
+
+For example, add(2, 3) should return 5, and add(2) should return a function.
+
+Calling this returned function with a single argument will then return the sum:
+
+var sumTwoAnd = add(2);
+
+sumTwoAnd(3) returns 5.
+
+If either argument isn't a valid number, return undefined.
+*/
+
+function add() {
+  
+  var holder = arguments[0];
+  
+    for (var i = 0; i < arguments.length; i++) {
+      if (typeof(arguments[i]) !== 'number') {
+        return undefined;
+      } else if (i === 1) {
+        return arguments[0] + arguments[1];
+      }
+    }
+  
+  // return anon function as closure
+    return function(arg) {
+      if (typeof(arg) === 'number') {
+        return holder + arg;
+      } else {
+        return undefined;
+      }
+   };
+ }
+
+add(2)(3);
 
 
 /* MORE ALGORITHMS COMING SOON! */
