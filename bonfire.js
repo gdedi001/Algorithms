@@ -1162,7 +1162,7 @@ function add() {
       if (typeof(arguments[i]) !== 'number') {
         return undefined;
       } else if (i === 1) {
-        return arguments[0] + arguments[1];
+        return holder + arguments[1];
       }
     }
   
