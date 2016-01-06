@@ -753,35 +753,23 @@ For this, check to see if the property defined in the second argument is present
 Remember, you can access object properties through either dot notation or [] notation.
 */
 
-
 function every(collection, pre) {
-  // Does everyone have one of these?
-  var objCount = collection.length - 1;
-  
-  for (var i = 0; i <= objCount; i++)
+  for (var i = 0; i < collection.length; i++)
     {
-      // if the property exits check to see if it is valid
-      if(collection[i].hasOwnProperty(pre))
-        {
-          if (Boolean(collection[i][pre]))
-            {
-              if (i === objCount)
-                {
-                  return true;
-                }
-            }
-          else
-            {
-              return false;
-            }
-        }
-      else
-        {
-          return false;
-        }
+        if (Boolean(collection[i][pre]))
+          {
+            if (i === collection.length-1)
+              {
+                return true;
+              }
+          }
+        else
+          {
+            return false;
+          }
     }
 }
-          
+
 every([{'user': 'Tinky-Winky', 'sex': 'male'}, {'user': 'Dipsy', 'sex': 'male'}, {'user': 'Laa-Laa', 'sex': 'female'}, {'user': 'Po', 'sex': 'female'}], 'sex');
 
 
@@ -1129,6 +1117,30 @@ function pairwise(arr, arg) {
 }
 
 pairwise([1,4,2,3,0,5], 7);
+
+/*
+Bonfire: Sorted Union
+----------------------
+Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.
+
+In other words, all values present from all arrays should be included in their original order, but with no duplicates in the final array.
+
+The unique numbers should be sorted by their original order, but the final array should not be sorted in numerical order.
+*/
+
+function unite(arr1, arr2, arr3) {
+
+  // NOTE: Brackets are not needed if one line of code is used after conditional
+    
+  for (var i = 1; i < arguments.length; i++)
+    for (var x = 0; x< arguments[i].length; x++)
+      if (arr1.indexOf(arguments[i][x]) == -1)
+        arr1.push(arguments[i][x]);
+  
+  return arr1;
+}
+
+unite([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 
 
 /* MORE ALGORITHMS COMING SOON! */
